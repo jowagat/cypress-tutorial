@@ -14,6 +14,7 @@ describe('List items', () => {
 
   it('Shows remaining todos in the footer', () => {
     // check the todo count to be 3 from the seed
+    cy.get('.todo-count').should('contain', '3 todos left')
   })
 
   it('Removes a todo', () => {
@@ -54,9 +55,13 @@ describe('List items', () => {
       .as('first-todo')
 
     // toggle the first todo and insure that it is checked
-
+    
+    cy.get('@first-todo').find('.toggle').click()
+    
     // check that it has class "completed"
+    cy.get('@first-todo').should('have.class', 'completed')
 
     // check todo count for 2 todos remaining
+    cy.get('.todo-count').should('contain', '2 todos left')
   })
 })

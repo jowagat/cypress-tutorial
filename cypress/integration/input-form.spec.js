@@ -12,6 +12,8 @@ describe('Input form', () => {
     const typedText = 'Buy Milk'
 
     // type the value of `typedText` in .new-todo and insure that it has that value
+    cy.get('.new-todo').type(typedText).should('have.value', 'Buy Milk')
+    
   })
 
   context('Form submission', () => {
@@ -28,8 +30,13 @@ describe('Input form', () => {
       })
 
       // type and submit the value of `itemText` and insure that the field is emptied
+      cy.get('.new-todo').type(itemText + '{enter}')
 
+      cy.get('.new-todo').should('have.value', '')
+      
       // check that there is a list with 1 item in it and that it contains the correct text
+      cy.get('.todo-list > li').should('have.length', 1)
+      
     })
 
     it('Shows an error message on a failed submission', () => {
